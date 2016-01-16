@@ -2,25 +2,28 @@
 package org.usfirst.frc.team4007.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-
 import org.usfirst.frc.team4007.robot.Robot;
+import edu.wpi.first.wpilibj.Jaguar;
 
 /**
  *
  */
 public class ExampleCommand extends Command {
-
+	Jaguar danny;
     public ExampleCommand() {
         // Use requires() here to declare subsystem dependencies
         requires(Robot.exampleSubsystem);
+         
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	danny = new Jaguar(7);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	danny.set(0.5);
     }
 
     // Make this return true when this Command no longer needs to run execute()
