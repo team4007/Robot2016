@@ -1,5 +1,6 @@
 package org.usfirst.frc.team4007.robot.subsystems;
 
+import edu.wpi.first.wpilibj.Jaguar;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -9,6 +10,10 @@ public class Lanceur extends Subsystem {
     
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
+	public Jaguar essieuHaut;
+	public Jaguar essieuMilieu;
+	public Jaguar essieuBas;
+	
 
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
