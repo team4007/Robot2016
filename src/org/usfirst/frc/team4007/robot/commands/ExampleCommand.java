@@ -18,12 +18,10 @@ public class ExampleCommand extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	danny = new Jaguar(7);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	danny.set(0.5);
     }
 
     // Make this return true when this Command no longer needs to run execute()
