@@ -16,8 +16,10 @@ public class Lanceur extends Subsystem {
 	public Jaguar essieuMilieu;
 	public Jaguar essieuBas;
 	
-	private double throwingSpeed = 1.0;
-	private double swallowingSpeed = 1.0;
+	private double throwingSpeed = .25;
+	private double swallowingSpeed = .25;
+	
+	private boolean swallowerRunning = false;
 	
 	
 	public Lanceur(){
@@ -34,6 +36,7 @@ public class Lanceur extends Subsystem {
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
+    	stop();
     }
     
     public void stop(){
@@ -41,17 +44,33 @@ public class Lanceur extends Subsystem {
     	essieuMilieu.stopMotor();
     	essieuBas.stopMotor();
     	
+    	swallowerRunning = false;
+    	
     }
 
     public void lancer(){
     	essieuHaut.set(throwingSpeed);
     	essieuMilieu.set(-throwingSpeed);
     }
+    
     public void gober(){
-    	essieuBas.set(swallowingSpeed);
+		essieuHaut.set(swallowingSpeed);
+		essieuMilieu.set(swallowingSpeed);
+		essieuBas.set(swallowingSpeed);
+
+		
+		swallowerRunning = true;
+		//System.out.println("Gobeur active!");
+	
     	
     }
-
+    
+    public void setSwallowerSpeed(double speed){
+    	essieuBas.set(speed);
+    }
 }
+    
+
+
 
 

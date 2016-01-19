@@ -1,5 +1,6 @@
 package org.usfirst.frc.team4007.robot;
 
+import org.usfirst.frc.team4007.robot.commands.StopSwallow;
 import org.usfirst.frc.team4007.robot.commands.Swallow;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -57,6 +58,7 @@ public class OI {
 				jbRS = new JoystickButton(joystick, 10);
 		
 		jbLB.whenActive(new Swallow());
+		jbLB.whenInactive(new StopSwallow());
 	}
 
 	
