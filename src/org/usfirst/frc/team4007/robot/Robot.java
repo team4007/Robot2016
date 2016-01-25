@@ -4,7 +4,10 @@ package org.usfirst.frc.team4007.robot;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+
+import org.usfirst.frc.team4007.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team4007.robot.subsystems.ExampleSubsystem;
 import org.usfirst.frc.team4007.robot.subsystems.Lanceur;
 
@@ -24,6 +27,9 @@ public class Robot extends IterativeRobot {
 	
 	
 	public static OI oi;
+
+
+	public static DriveTrain driveTrain;
 
     Command autonomousCommand;
     SendableChooser chooser;

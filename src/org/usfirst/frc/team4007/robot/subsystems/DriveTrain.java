@@ -2,6 +2,9 @@ package org.usfirst.frc.team4007.robot.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.Jaguar;
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.RobotDrive;
+
 import org.usfirst.frc.team4007.robot.RobotMap;
 
 /**
@@ -13,6 +16,7 @@ public class DriveTrain extends Subsystem {
     // here. Call these from Commands.
 	public Jaguar chenilleGauche;
 	public Jaguar chenilleDroite;
+	RobotDrive drive;
 	
 	private double drivingSpeed = .25;
 	
@@ -21,6 +25,8 @@ public class DriveTrain extends Subsystem {
 		super();
 		chenilleGauche = new Jaguar(RobotMap.PWMChenilleGauche);
 		chenilleDroite = new Jaguar(RobotMap.PWMChenilleDroite);
+
+		drive = new RobotDrive(chenilleGauche, chenilleDroite);
 	}
 	
 	
@@ -36,7 +42,10 @@ public class DriveTrain extends Subsystem {
     	chenilleDroite.stopMotor();
     }
     
-    public void
+    public void drive(Joystick joystick) {
+    	drive.arcadeDrive(joystick);
+    	
+    }
 }
 
 
