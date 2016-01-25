@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
 
 import org.usfirst.frc.team4007.robot.RobotMap;
+import org.usfirst.frc.team4007.robot.commands.DriveWithJoystick;
 
 /**
  *
@@ -27,14 +28,15 @@ public class DriveTrain extends Subsystem {
 		chenilleDroite = new Jaguar(RobotMap.PWMChenilleDroite);
 
 		drive = new RobotDrive(chenilleGauche, chenilleDroite);
+		
+
 	}
 	
 	
 
     public void initDefaultCommand() {
-        // Set the default command for a subsystem here.
-        //setDefaultCommand(new MySpecialCommand());
-    	stop();
+    	setDefaultCommand(new DriveWithJoystick());
+
     }
     
     public void stop() {
@@ -43,8 +45,8 @@ public class DriveTrain extends Subsystem {
     }
     
     public void drive(Joystick joystick) {
-    	drive.arcadeDrive(joystick);
-    	
+    	drive.arcadeDrive(-joystick.getY(), -joystick.getX());
+    	    	
     }
 }
 

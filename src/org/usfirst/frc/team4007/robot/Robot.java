@@ -29,7 +29,7 @@ public class Robot extends IterativeRobot {
 	public static OI oi;
 
 
-	public static DriveTrain driveTrain;
+	public static DriveTrain driveTrain = new DriveTrain();
 
     Command autonomousCommand;
     SendableChooser chooser;
