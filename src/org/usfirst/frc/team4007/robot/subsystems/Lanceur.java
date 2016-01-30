@@ -3,6 +3,8 @@ package org.usfirst.frc.team4007.robot.subsystems;
 import org.usfirst.frc.team4007.robot.RobotMap;
 import edu.wpi.first.wpilibj.Jaguar;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.AnalogInput;
+
 
 /**
  *
@@ -14,18 +16,23 @@ public class Lanceur extends Subsystem {
 	public Jaguar essieuHaut;
 	public Jaguar essieuMilieu;
 	public Jaguar essieuBas;
+	public AnalogInput sonar;
+	
+	
 	
 	private double throwingSpeed = .25;
-	private double swallowingSpeed = .25;
+	private double swallowingSpeed = .1;
 	
 	private boolean swallowerRunning = false;
 	
 	
 	public Lanceur(){
 		super();
-		essieuHaut = new Jaguar(RobotMap.PWMEssieuHaut);
+		essieuHaut = new Jaguar (RobotMap.PWMEssieuHaut);
 		essieuMilieu = new Jaguar (RobotMap.PWMEssieuMilieu);
 		essieuBas = new Jaguar (RobotMap.PWMEssieuBas);
+		sonar = new AnalogInput (RobotMap.ANALOGINPUTSonar);
+		
 		
 	}
 	
@@ -53,9 +60,8 @@ public class Lanceur extends Subsystem {
     }
     
     public void gober(){
-		essieuHaut.set(swallowingSpeed);
-		essieuMilieu.set(swallowingSpeed);
-		essieuBas.set(swallowingSpeed);
+		essieuBas.set(-swallowingSpeed);
+		
 
 		
 		swallowerRunning = true;

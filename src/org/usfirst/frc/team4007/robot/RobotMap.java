@@ -22,4 +22,8 @@ public class RobotMap {
 	public static int PWMEssieuHaut = 7;
 	public static int PWMEssieuMilieu = 8;
 	public static int PWMEssieuBas = 9;
+	
+	public static int ANALOGINPUTSonar = 0;
+	
+		
 }

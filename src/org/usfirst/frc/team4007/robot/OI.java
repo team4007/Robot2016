@@ -2,7 +2,9 @@ package org.usfirst.frc.team4007.robot;
 
 import org.usfirst.frc.team4007.robot.commands.PrintDebug;
 import org.usfirst.frc.team4007.robot.commands.StopSwallow;
+import org.usfirst.frc.team4007.robot.commands.StopThrow;
 import org.usfirst.frc.team4007.robot.commands.Swallow;
+import org.usfirst.frc.team4007.robot.commands.Throw;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -35,6 +37,9 @@ public class OI {
 		
 		jbLB.whenActive(new Swallow());
 		jbLB.whenInactive(new StopSwallow());
+		
+		jbRB.whenActive(new Throw());
+		jbRB.whenInactive(new StopThrow ());
 		
 		jbY.whenActive(new PrintDebug());
 	}

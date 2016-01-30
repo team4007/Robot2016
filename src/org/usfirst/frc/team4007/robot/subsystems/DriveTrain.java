@@ -4,6 +4,11 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.Jaguar;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
+/*import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.PIDController;*/
+
+
+
 
 import org.usfirst.frc.team4007.robot.RobotMap;
 import org.usfirst.frc.team4007.robot.commands.DriveWithJoystick;
@@ -17,6 +22,11 @@ public class DriveTrain extends Subsystem {
     // here. Call these from Commands.
 	public Jaguar chenilleGauche;
 	public Jaguar chenilleDroite;
+	/*public Encoder encoder1, encoder2;
+	public PIDController pid1, pid2;*/
+	
+
+	
 	RobotDrive drive;
 	
 	private double drivingSpeed = .25;
@@ -26,10 +36,11 @@ public class DriveTrain extends Subsystem {
 		super();
 		chenilleGauche = new Jaguar(RobotMap.PWMChenilleGauche);
 		chenilleDroite = new Jaguar(RobotMap.PWMChenilleDroite);
-
+		/*encoder1 = new Encoder (0,1);
+		pid1 = new PIDController(.1,0,0,encoder1,chenilleGauche);
+		encoder2 = new Encoder (2,3);
+		pid2 = new PIDController(.1,0,0,encoder2,chenilleDroite);*/
 		drive = new RobotDrive(chenilleGauche, chenilleDroite);
-		
-
 	}
 	
 	
@@ -45,8 +56,9 @@ public class DriveTrain extends Subsystem {
     }
     
     public void drive(Joystick joystick) {
-    	drive.arcadeDrive(-joystick.getY(), -joystick.getX());
-    	    	
+    	//drive.arcadeDrive(-joystick.getY(), -joystick.getX());     1 joystick
+    	drive.arcadeDrive(joystick.getRawAxis(1), -joystick.getRawAxis(4));     // 2 joysticks
+    	
     }
 }
 
