@@ -16,12 +16,12 @@ public class RobotMap {
     // public static int rangefinderPort = 1;
     // public static int rangefinderModule = 1;
 	
-	public static int PWMChenilleGauche = 0;
-	public static int PWMChenilleDroite = 1;
+	public static int PWMRoueGauche = 0;
+	public static int PWMRoueDroite = 1;
 	
-	public static int PWMEssieuHaut = 7;
-	public static int PWMEssieuMilieu = 8;
-	public static int PWMEssieuBas = 9;
+	public static int PWMEssieuHaut = 2;
+	public static int PWMEssieuMilieu = 3;
+	public static int PWMEssieuBas = 4;
 	
 	public static int ANALOGINPUTSonar = 0;
 	
