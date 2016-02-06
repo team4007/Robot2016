@@ -31,7 +31,7 @@ public class Lanceur extends Subsystem {
 		essieuHaut = new Jaguar (RobotMap.PWMEssieuHaut);
 		essieuMilieu = new Jaguar (RobotMap.PWMEssieuMilieu);
 		essieuBas = new Jaguar (RobotMap.PWMEssieuBas);
-		sonar = new AnalogInput (RobotMap.ANALOGINPUTSonar);
+	
 		
 		
 	}
