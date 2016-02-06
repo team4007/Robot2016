@@ -7,19 +7,19 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class PrepareLift extends Command {
+public class StopLiftUp extends Command {
 
-    public PrepareLift() {
-       requires(Robot.bras);
+    public StopLiftUp() {
+        requires(Robot.bras);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	Robot.bras.stop();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.bras.monterBras();
     }
 
     // Make this return true when this Command no longer needs to run execute()

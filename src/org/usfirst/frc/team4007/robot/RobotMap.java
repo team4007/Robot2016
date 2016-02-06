@@ -23,5 +23,7 @@ public class RobotMap {
 	public static int PWMEssieuMilieu = 1;
 	public static int PWMEssieuBas = 2;
 	
+	public static int PWMBras = 3;
+	
 		
 }
