@@ -57,7 +57,7 @@ public class DriveTrain extends Subsystem {
     
     public void drive(Joystick joystick) {
     	//drive.arcadeDrive(-joystick.getY(), -joystick.getX());     1 joystick
-    	drive.arcadeDrive(joystick.getRawAxis(1), -joystick.getRawAxis(4));     // 2 joysticks
+    	drive.arcadeDrive(joystick.getRawAxis(1), joystick.getRawAxis(4));     // 2 joysticks
     	
     }
 }
