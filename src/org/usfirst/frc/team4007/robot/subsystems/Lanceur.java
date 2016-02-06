@@ -19,7 +19,6 @@ public class Lanceur extends Subsystem {
 	public AnalogInput sonar;
 	
 	
-	
 	private double throwingSpeed = .25;
 	private double swallowingSpeed = .1;
 	
@@ -31,7 +30,7 @@ public class Lanceur extends Subsystem {
 		essieuHaut = new Jaguar (RobotMap.PWMEssieuHaut);
 		essieuMilieu = new Jaguar (RobotMap.PWMEssieuMilieu);
 		essieuBas = new Jaguar (RobotMap.PWMEssieuBas);
-	
+		sonar = new AnalogInput(3);
 		
 		
 	}
@@ -54,19 +53,22 @@ public class Lanceur extends Subsystem {
     	
     }
 
-    public void lancer(){
+    public void preparerLancer(){
     	essieuHaut.set(throwingSpeed);
     	essieuMilieu.set(-throwingSpeed);
     }
     
+    public void lancer(){
+    	essieuBas.set(-throwingSpeed);
+    }
+    
     public void gober(){
-		essieuBas.set(-swallowingSpeed);
+    	swallowerRunning = true;
+    	while(sonar.getValue() < 2500){
+    		essieuBas.set(-swallowingSpeed);
+    	}
 		
-
-		
-		swallowerRunning = true;
 		//System.out.println("Gobeur active!");
-	
     	
     }
     
