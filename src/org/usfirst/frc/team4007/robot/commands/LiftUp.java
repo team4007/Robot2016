@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.command.Command;
 public class LiftUp extends Command {
 
     public LiftUp() {
-       requires(Robot.grappin);
+       requires(Robot.bras);
     }
 
     // Called just before this Command runs the first time

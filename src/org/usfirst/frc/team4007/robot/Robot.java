@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 import org.usfirst.frc.team4007.robot.subsystems.DriveTrain;
-import org.usfirst.frc.team4007.robot.subsystems.Grappin;
+import org.usfirst.frc.team4007.robot.subsystems.Bras;
 import org.usfirst.frc.team4007.robot.subsystems.Lanceur;
 
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -29,7 +29,7 @@ public class Robot extends IterativeRobot {
 	
 	public static OI oi;
 
-	public static Grappin grappin = new Grappin();
+	public static Bras bras = new Bras();
 	public static DriveTrain driveTrain = new DriveTrain();
 
 	CameraServer server;
