@@ -20,8 +20,8 @@ public class DriveTrain extends Subsystem {
 	
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
-	public Jaguar chenilleGauche;
-	public Jaguar chenilleDroite;
+	public Jaguar roueGauche;
+	public Jaguar roueDroite;
 	/*public Encoder encoder1, encoder2;
 	public PIDController pid1, pid2;*/
 	
@@ -34,13 +34,13 @@ public class DriveTrain extends Subsystem {
 	
 	public DriveTrain() {
 		super();
-		chenilleGauche = new Jaguar(RobotMap.PWMRoueGauche);
-		chenilleDroite = new Jaguar(RobotMap.PWMRoueDroite);
+		roueGauche = new Jaguar(RobotMap.PWMRoueGauche);
+		roueDroite = new Jaguar(RobotMap.PWMRoueDroite);
 		/*encoder1 = new Encoder (0,1);
 		pid1 = new PIDController(.1,0,0,encoder1,chenilleGauche);
 		encoder2 = new Encoder (2,3);
 		pid2 = new PIDController(.1,0,0,encoder2,chenilleDroite);*/
-		drive = new RobotDrive(chenilleGauche, chenilleDroite);
+		drive = new RobotDrive(roueGauche, roueDroite);
 	}
 	
 	
@@ -51,8 +51,8 @@ public class DriveTrain extends Subsystem {
     }
     
     public void stop() {
-    	chenilleGauche.stopMotor();
-    	chenilleDroite.stopMotor();
+    	roueGauche.stopMotor();
+    	roueDroite.stopMotor();
     }
     
     public void drive(Joystick joystick) {

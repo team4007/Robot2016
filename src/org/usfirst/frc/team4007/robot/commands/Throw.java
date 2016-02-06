@@ -1,49 +1,40 @@
 package org.usfirst.frc.team4007.robot.commands;
 
 import org.usfirst.frc.team4007.robot.Robot;
+
 import edu.wpi.first.wpilibj.command.Command;
 
+/**
+ *
+ */
+public class Throw extends Command {
 
-public class Swallow extends Command {
-	
-	long time;
-	
-    public Swallow() {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
-    	super ();
-    	
+    public Throw() {
     	requires(Robot.lanceur);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	 Robot.lanceur.gober();
-    	  	
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	
+    	Robot.lanceur.lancer();
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	System.out.println("Swallow.isFinished()");  
-        return true;
+        return false;
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	System.out.println("Swallow.end()");  
-    	
     	Robot.lanceur.stop();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	System.out.println("Swallow.interrupted()");  
     	end();
     }
 }
