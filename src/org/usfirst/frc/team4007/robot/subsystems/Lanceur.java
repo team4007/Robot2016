@@ -17,7 +17,7 @@ public class Lanceur extends Subsystem {
 	public Jaguar essieuMilieu;
 	public Jaguar essieuBas;
 	public AnalogInput sonar;
-	
+	public boolean isFinishedSwallowing = false;
 	
 	private double throwingSpeed = .25;
 	private double swallowingSpeed = .1;
@@ -63,9 +63,13 @@ public class Lanceur extends Subsystem {
     }
     
     public void gober(){
-    	swallowerRunning = true;
-    	while(sonar.getValue() < 2500){
+    	
+    	if(sonar.getValue() < 2500){
+    		isFinishedSwallowing = false;
     		essieuBas.set(-swallowingSpeed);
+    	}else{
+    		isFinishedSwallowing = true;
+    		essieuBas.set(0);
     	}
 		
 		//System.out.println("Gobeur active!");

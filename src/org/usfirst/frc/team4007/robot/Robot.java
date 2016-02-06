@@ -1,7 +1,7 @@
 
 package org.usfirst.frc.team4007.robot;
 
-import edu.wpi.first.wpilibj.CameraServer;
+
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -32,7 +32,6 @@ public class Robot extends IterativeRobot {
 	public static Bras bras = new Bras();
 	public static DriveTrain driveTrain = new DriveTrain();
 
-	CameraServer server;
     Command autonomousCommand;
     SendableChooser chooser;
 
@@ -44,9 +43,9 @@ public class Robot extends IterativeRobot {
 		oi = new OI();
         chooser = new SendableChooser();
 //        chooser.addObject("My Auto", new MyAutoCommand());
-        server = CameraServer.getInstance();
+        /*server = CameraServer.getInstance();
         server.setQuality(50);
-        server.startAutomaticCapture("cam0");
+        server.startAutomaticCapture("cam0");*/
         		
         							
         SmartDashboard.putData("Auto mode", chooser);
