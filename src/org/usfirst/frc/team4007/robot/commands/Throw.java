@@ -29,7 +29,7 @@ public class Throw extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.lanceur.stop();
+    	//Robot.lanceur.stop();
     }
 
     // Called when another command which requires one or more of the same

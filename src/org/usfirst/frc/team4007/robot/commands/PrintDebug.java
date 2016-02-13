@@ -2,6 +2,7 @@ package org.usfirst.frc.team4007.robot.commands;
 
 import org.usfirst.frc.team4007.robot.Robot;
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -21,7 +22,8 @@ public class PrintDebug extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	outputDebug();
+    	//outputDebug();
+    	outputWhileHolding(Robot.oi.joystick);
     	run = true;
     }
 
@@ -32,6 +34,7 @@ public class PrintDebug extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
+    	
     }
 
     // Called when another command which requires one or more of the same
@@ -40,9 +43,19 @@ public class PrintDebug extends Command {
     }
     
     private void outputDebug(){
-    	System.out.println("---------------Debug : BEGIN --------");
-
-    	System.out.println("---------------Debug : END ---------");
+    	//System.out.println("---------------Debug : BEGIN --------");
+    	//System.out.println("Encodeur: " + Robot.lanceur.getEncoderRaw());
+    	System.out.println("Vitesse: " + Robot.lanceur.getSpeed());
+    	//System.out.println("---------------Debug : END ---------");
     	//SmartDashboard.putString("mode", "TATA");
+    }
+    
+    
+    private void outputWhileHolding(Joystick j){
+    	if(j.getRawButton(3)){
+    		outputDebug();
+    	}
+    	
+    	
     }
 }

@@ -5,6 +5,7 @@ import org.usfirst.frc.team4007.robot.commands.PrepareLift;
 import org.usfirst.frc.team4007.robot.commands.PrintDebug;
 import org.usfirst.frc.team4007.robot.commands.StopLiftUp;
 import org.usfirst.frc.team4007.robot.commands.StopPrepareLift;
+import org.usfirst.frc.team4007.robot.commands.StopSwallow;
 import org.usfirst.frc.team4007.robot.commands.StopThrow;
 import org.usfirst.frc.team4007.robot.commands.Swallow;
 import org.usfirst.frc.team4007.robot.commands.Throw;
@@ -23,9 +24,12 @@ public class OI {
 
 	public Joystick joystick;
 	
+	public PrintDebug pd;
+	
 	public OI() {
 		joystick = new Joystick(0);
 
+		pd = new PrintDebug();
 
 		//xbox mapping
 		JoystickButton jbA = new JoystickButton(joystick, 1),
@@ -40,6 +44,7 @@ public class OI {
 				jbRS = new JoystickButton(joystick, 10);
 		
 		jbLB.whenActive(new Swallow()); 
+		//jbLB.whenInactive(new StopSwallow());
 		
 		jbSTART.whenActive(new PrepareLift());
 		jbSTART.whenInactive(new StopPrepareLift());
@@ -48,12 +53,15 @@ public class OI {
 		jbBACK.whenInactive(new StopLiftUp());
 		
 		jbRB.whenActive(new PrepareThrow());
-		jbRB.whenInactive(new StopThrow ());
+		jbRB.whenInactive(new StopThrow());
 		
 		jbA.whenActive(new Throw());
 		jbA.whenInactive(new StopThrow());
 		
 		jbY.whenActive(new PrintDebug());
+		
+		jbX.whileActive(pd);
+		
 	}
 
 	

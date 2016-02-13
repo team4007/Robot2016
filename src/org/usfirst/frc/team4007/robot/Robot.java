@@ -7,11 +7,12 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import org.usfirst.frc.team4007.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team4007.robot.subsystems.Bras;
 import org.usfirst.frc.team4007.robot.subsystems.Lanceur;
-
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -31,6 +32,10 @@ public class Robot extends IterativeRobot {
 
 	public static Bras bras = new Bras();
 	public static DriveTrain driveTrain = new DriveTrain();
+	
+	public DoubleSolenoid sol1, sol2;
+	public DigitalInput valve;
+	public Relay spike;
 
     Command autonomousCommand;
     SendableChooser chooser;
@@ -47,7 +52,11 @@ public class Robot extends IterativeRobot {
         server.setQuality(50);
         server.startAutomaticCapture("cam0");*/
         		
-        							
+        sol1 = new DoubleSolenoid(0,1);
+        sol2 = new DoubleSolenoid(6,7);
+        valve = new DigitalInput(0);
+        spike = new Relay(0);
+        
         SmartDashboard.putData("Auto mode", chooser);
         
     }
@@ -106,6 +115,7 @@ public class Robot extends IterativeRobot {
         // continue until interrupted by another command, remove
         // this line or comment it out.
         if (autonomousCommand != null) autonomousCommand.cancel();
+        
     }
 
     /**
@@ -113,6 +123,12 @@ public class Robot extends IterativeRobot {
      */
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
+        
+        if(!valve.get()){
+        	spike.set(Relay.Value.kOff);
+        }else{
+        	spike.set(Relay.Value.kForward);
+        }
     }
     
     /**
