@@ -44,7 +44,7 @@ public class OI {
 				jbRS = new JoystickButton(joystick, 10);
 		
 		jbLB.whenActive(new Swallow()); 
-		//jbLB.whenInactive(new StopSwallow());
+		jbLB.whenInactive(new StopSwallow());
 		
 		jbSTART.whenActive(new PrepareLift());
 		jbSTART.whenInactive(new StopPrepareLift());
@@ -55,8 +55,8 @@ public class OI {
 		jbRB.whenActive(new PrepareThrow());
 		jbRB.whenInactive(new StopThrow());
 		
-		jbA.whenActive(new Throw());
-		jbA.whenInactive(new StopThrow());
+		/*jbA.whenActive(new Throw());
+		jbA.whenInactive(new StopThrow());*/
 		
 		jbY.whenActive(new PrintDebug());
 		

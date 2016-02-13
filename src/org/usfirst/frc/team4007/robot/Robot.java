@@ -7,7 +7,6 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-import edu.wpi.first.wpilibj.DoubleSolenoid;
 import org.usfirst.frc.team4007.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team4007.robot.subsystems.Bras;
 import org.usfirst.frc.team4007.robot.subsystems.Lanceur;
@@ -33,7 +32,6 @@ public class Robot extends IterativeRobot {
 	public static Bras bras = new Bras();
 	public static DriveTrain driveTrain = new DriveTrain();
 	
-	public DoubleSolenoid sol1, sol2;
 	public DigitalInput valve;
 	public Relay spike;
 
@@ -52,9 +50,7 @@ public class Robot extends IterativeRobot {
         server.setQuality(50);
         server.startAutomaticCapture("cam0");*/
         		
-        sol1 = new DoubleSolenoid(0,1);
-        sol2 = new DoubleSolenoid(6,7);
-        valve = new DigitalInput(0);
+        valve = new DigitalInput(9);
         spike = new Relay(0);
         
         SmartDashboard.putData("Auto mode", chooser);
@@ -124,10 +120,10 @@ public class Robot extends IterativeRobot {
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
         
-        if(!valve.get()){
+        if(valve.get()){
         	spike.set(Relay.Value.kOff);
         }else{
-        	spike.set(Relay.Value.kForward);
+        	spike.set(Relay.Value.kReverse);
         }
     }
     

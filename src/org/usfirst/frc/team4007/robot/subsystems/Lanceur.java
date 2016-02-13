@@ -100,7 +100,7 @@ public class Lanceur extends Subsystem {
     
     public void gober(){
     	
-    	if(sonar.getValue() < 2500){
+    	/*if(sonar.getValue() < 2500){
     		isFinishedSwallowing = false;
     		essieuBas.set(-swallowingSpeed);
     	}else{
@@ -110,10 +110,10 @@ public class Lanceur extends Subsystem {
     		Timer.delay(0.01);
     		essieuBas.set(0);
     		essieuMilieu.set(0);
-    	}
+    	}*/
 		
 		//System.out.println("Gobeur active!");
-    	//essieuBas.set(-1);
+    	essieuBas.set(-1);
     }
     /*public void stopGober(){
     	essieuBas.set(0);
