@@ -3,8 +3,6 @@ package org.usfirst.frc.team4007.robot;
 import org.usfirst.frc.team4007.robot.commands.LiftUp;
 import org.usfirst.frc.team4007.robot.commands.PrepareLift;
 import org.usfirst.frc.team4007.robot.commands.PrintDebug;
-import org.usfirst.frc.team4007.robot.commands.StopLiftUp;
-import org.usfirst.frc.team4007.robot.commands.StopPrepareLift;
 import org.usfirst.frc.team4007.robot.commands.StopSwallow;
 import org.usfirst.frc.team4007.robot.commands.StopThrow;
 import org.usfirst.frc.team4007.robot.commands.Swallow;
@@ -47,10 +45,10 @@ public class OI {
 		jbLB.whenInactive(new StopSwallow());
 		
 		jbSTART.whenActive(new PrepareLift());
-		jbSTART.whenInactive(new StopPrepareLift());
+		//jbSTART.whenInactive(new StopPrepareLift());
 		
 		jbBACK.whenActive(new LiftUp());
-		jbBACK.whenInactive(new StopLiftUp());
+		//jbBACK.whenInactive(new StopLiftUp());
 		
 		jbRB.whenActive(new PrepareThrow());
 		jbRB.whenInactive(new StopThrow());

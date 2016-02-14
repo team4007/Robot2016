@@ -24,6 +24,7 @@ public class Lanceur extends Subsystem {
 	public Encoder encoder;
 	public boolean isFinishedSwallowing = false;
 	
+	private int sonarThreshold = 2500;
 	private double throwingSpeed = 1;
 	private double swallowingSpeed = .5;
 	
@@ -100,7 +101,7 @@ public class Lanceur extends Subsystem {
     
     public void gober(){
     	
-    	/*if(sonar.getValue() < 2500){
+    	/*if(sonar.getValue() < sonarThreshold){
     		isFinishedSwallowing = false;
     		essieuBas.set(-swallowingSpeed);
     	}else{

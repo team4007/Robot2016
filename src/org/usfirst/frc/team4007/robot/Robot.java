@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+//import edu.wpi.first.wpilibj.PowerDistributionPanel;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -32,6 +33,7 @@ public class Robot extends IterativeRobot {
 	public static Bras bras = new Bras();
 	public static DriveTrain driveTrain = new DriveTrain();
 	
+	//public PowerDistributionPanel pdp;
 	public DigitalInput valve;
 	public Relay spike;
 
@@ -49,7 +51,8 @@ public class Robot extends IterativeRobot {
         /*server = CameraServer.getInstance();
         server.setQuality(50);
         server.startAutomaticCapture("cam0");*/
-        		
+        
+        //pdp = new PowerDistributionPanel();
         valve = new DigitalInput(9);
         spike = new Relay(0);
         
@@ -104,6 +107,7 @@ public class Robot extends IterativeRobot {
     public void autonomousPeriodic() {
         Scheduler.getInstance().run();
     }
+   
 
     public void teleopInit() {
 		// This makes sure that the autonomous stops running when
@@ -125,6 +129,8 @@ public class Robot extends IterativeRobot {
         }else{
         	spike.set(Relay.Value.kReverse);
         }
+        
+       // System.out.println("Amperage:" + pdp.getTotalCurrent());
     }
     
     /**
