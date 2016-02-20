@@ -10,7 +10,6 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import org.usfirst.frc.team4007.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team4007.robot.subsystems.Bras;
 import org.usfirst.frc.team4007.robot.subsystems.Lanceur;
-import org.usfirst.frc.team4007.robot.subsystems.Pivot;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Relay;
@@ -34,7 +33,6 @@ public class Robot extends IterativeRobot {
 
 	public static Bras bras = new Bras();
 	public static DriveTrain driveTrain = new DriveTrain();
-	public static Pivot pivot = new Pivot();
 	
 	//public PowerDistributionPanel pdp;
 	public DigitalInput valve;
