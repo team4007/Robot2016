@@ -5,8 +5,10 @@ import org.usfirst.frc.team4007.robot.commands.PrepareLift;
 import org.usfirst.frc.team4007.robot.commands.PrintDebug;
 import org.usfirst.frc.team4007.robot.commands.StopSwallow;
 import org.usfirst.frc.team4007.robot.commands.StopThrow;
+import org.usfirst.frc.team4007.robot.commands.StopTurn;
 import org.usfirst.frc.team4007.robot.commands.Swallow;
 import org.usfirst.frc.team4007.robot.commands.Throw;
+import org.usfirst.frc.team4007.robot.commands.Turn;
 import org.usfirst.frc.team4007.robot.commands.PrepareThrow;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -44,21 +46,24 @@ public class OI {
 		jbLB.whenActive(new Swallow()); 
 		jbLB.whenInactive(new StopSwallow());
 		
+		jbRB.whenActive(new PrepareThrow());
+		jbRB.whenInactive(new StopThrow());
+		
 		jbSTART.whenActive(new PrepareLift());
 		//jbSTART.whenInactive(new StopPrepareLift());
 		
 		jbBACK.whenActive(new LiftUp());
 		//jbBACK.whenInactive(new StopLiftUp());
 		
-		jbRB.whenActive(new PrepareThrow());
-		jbRB.whenInactive(new StopThrow());
+
 		
 		/*jbA.whenActive(new Throw());
 		jbA.whenInactive(new StopThrow());*/
 		
 		jbY.whenActive(new PrintDebug());
 		
-		jbX.whileActive(pd);
+		jbX.whenActive(new Turn());
+		jbX.whenInactive(new StopTurn());
 		
 	}
 

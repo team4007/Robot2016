@@ -26,7 +26,7 @@ public class Lanceur extends Subsystem {
 	
 	private int sonarThreshold = 2500;
 	private double throwingSpeed = 1;
-	private double swallowingSpeed = .5;
+	private double swallowingSpeed = -.5;
 	
 	private boolean swallowerRunning = false;
 	
@@ -90,6 +90,7 @@ public class Lanceur extends Subsystem {
     	essieuHaut.set(-1);
     	essieuMilieu.set(throwingSpeed);
     }
+    
     public void stopLancer(){
     	essieuHaut.set(0);
     	essieuMilieu.set(0);
@@ -114,11 +115,12 @@ public class Lanceur extends Subsystem {
     	}*/
 		
 		//System.out.println("Gobeur active!");
-    	essieuBas.set(-1);
+    	essieuBas.set(swallowingSpeed);
     }
-    /*public void stopGober(){
+    
+    public void stopGober(){
     	essieuBas.set(0);
-    }*/
+    }
     
     public void setSwallowerSpeed(double speed){
     	essieuBas.set(speed);
