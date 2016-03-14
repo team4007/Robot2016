@@ -25,7 +25,7 @@ public class Lanceur extends Subsystem {
 	public boolean isFinishedSwallowing = false;
 	
 	private int sonarThreshold = 2500;
-	private double throwingSpeed = 1;
+	private double throwingSpeed = -1;
 	private double swallowingSpeed = -.5;
 	
 	private boolean swallowerRunning = false;
@@ -87,7 +87,7 @@ public class Lanceur extends Subsystem {
     }*/
 
     public void preparerLancer(){
-    	essieuHaut.set(-1);
+    	essieuHaut.set(1);
     	essieuMilieu.set(throwingSpeed);
     }
     
