@@ -1,12 +1,15 @@
 package org.usfirst.frc.team4007.robot;
 
+import org.usfirst.frc.team4007.robot.commands.DownThrow;
 import org.usfirst.frc.team4007.robot.commands.LiftUp;
 import org.usfirst.frc.team4007.robot.commands.PrepareLift;
 import org.usfirst.frc.team4007.robot.commands.PrintDebug;
+import org.usfirst.frc.team4007.robot.commands.StopDownThrow;
 import org.usfirst.frc.team4007.robot.commands.StopSwallow;
 import org.usfirst.frc.team4007.robot.commands.StopThrow;
 import org.usfirst.frc.team4007.robot.commands.Swallow;
 import org.usfirst.frc.team4007.robot.commands.Throw;
+import org.usfirst.frc.team4007.robot.triggers.DoubleButton;
 import org.usfirst.frc.team4007.robot.commands.PrepareThrow;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -41,6 +44,9 @@ public class OI {
 				jbLS = new JoystickButton(joystick, 9),
 				jbRS = new JoystickButton(joystick, 10);
 		
+		new DoubleButton(joystick, 2, 3).whenActive(new DownThrow());
+		new DoubleButton(joystick, 2, 3).whenInactive(new StopDownThrow());
+		
 		jbLB.whenActive(new Swallow()); 
 		jbLB.whenInactive(new StopSwallow());
 		
@@ -52,8 +58,6 @@ public class OI {
 		
 		jbBACK.whenActive(new LiftUp());
 		//jbBACK.whenInactive(new StopLiftUp());
-		
-
 		
 		/*jbA.whenActive(new Throw());
 		jbA.whenInactive(new StopThrow());*/

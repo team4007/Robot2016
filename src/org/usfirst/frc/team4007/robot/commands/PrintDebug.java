@@ -22,7 +22,7 @@ public class PrintDebug extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	//outputDebug();
+    	outputDebug();
     	outputWhileHolding(Robot.oi.joystick);
     	run = true;
     }
@@ -43,11 +43,12 @@ public class PrintDebug extends Command {
     }
     
     private void outputDebug(){
-    	//System.out.println("---------------Debug : BEGIN --------");
-    	//System.out.println("Encodeur: " + Robot.lanceur.getEncoderRaw());
-    	System.out.println("Vitesse: " + Robot.lanceur.getSpeed());
-    	//System.out.println("---------------Debug : END ---------");
-    	//SmartDashboard.putString("mode", "TATA");
+    	System.out.println("---------------Debug : BEGIN --------");
+    	System.out.println("Encodeur: " + Robot.lanceur.getEncoderRaw());
+    	System.out.println("Vitesse Lanceur Haut: " + Robot.lanceur.getSpeedHaut());
+    	System.out.println("Vitesse Lanceur Milieu: " + Robot.lanceur.getSpeedMilieu());
+    	System.out.println("Vitesse Lanceur Bas: " + Robot.lanceur.getSpeedBas());
+    	System.out.println("---------------Debug : END ---------");
     }
     
     

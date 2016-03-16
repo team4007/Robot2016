@@ -60,10 +60,22 @@ public class Lanceur extends Subsystem {
 		return currentEncodeur;
 	}
 	
-	public double getSpeed(){
+	public double getSpeedHaut(){
 		
 		//return encoder.getDistance();
-		return encoder.getRate();
+		return essieuHaut.getSpeed();
+	}
+
+	public double getSpeedMilieu(){
+		
+		//return encoder.getDistance();
+		return essieuMilieu.getSpeed();
+	}
+	
+	public double getSpeedBas(){
+		
+		//return encoder.getDistance();
+		return essieuBas.getSpeed();
 	}
 	
 
@@ -98,6 +110,14 @@ public class Lanceur extends Subsystem {
     
     public void lancer(){
     	essieuBas.set(-1);
+    }
+    
+    public void downLancer(){
+    	essieuBas.set(1);
+    }
+    
+    public void downStopLancer(){
+    	essieuBas.set(0);
     }
     
     public void gober(){
