@@ -1,6 +1,8 @@
 package org.usfirst.frc.team4007.robot.commands;
 
 import org.usfirst.frc.team4007.robot.Robot;
+
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -9,6 +11,7 @@ import edu.wpi.first.wpilibj.command.Command;
 public class PrepareThrow extends Command {
 	static long delta = 2;
 	long time;
+	boolean oppositeImpulse = false;
     public PrepareThrow() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
@@ -19,6 +22,7 @@ public class PrepareThrow extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
     	time = System.currentTimeMillis();
+    	oppositeImpulse = false;
     	System.out.println("Throw.initialize()");   
     }
 
@@ -27,6 +31,11 @@ public class PrepareThrow extends Command {
     	if(System.currentTimeMillis() - time < delta){
     		Robot.lanceur.downLancer();
     	}else{
+    		if(!oppositeImpulse){
+    			Robot.lanceur.gober();
+    			oppositeImpulse = true;
+    			Timer.delay(0.01);
+    		}
     	Robot.lanceur.downStopLancer();
     	Robot.lanceur.preparerLancer();
     	}

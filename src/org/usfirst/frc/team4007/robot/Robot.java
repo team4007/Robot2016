@@ -11,9 +11,16 @@ import org.usfirst.frc.team4007.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team4007.robot.subsystems.Bras;
 import org.usfirst.frc.team4007.robot.subsystems.Lanceur;
 
+import com.ni.vision.NIVision;
+import com.ni.vision.NIVision.DrawMode;
+import com.ni.vision.NIVision.Image;
+import com.ni.vision.NIVision.ShapeMode;
+
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Relay;
+import edu.wpi.first.wpilibj.Servo;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 //import edu.wpi.first.wpilibj.PowerDistributionPanel;
@@ -29,7 +36,15 @@ public class Robot extends IterativeRobot {
 	//IMPORTANT
 	public static final Lanceur lanceur = new Lanceur();
 	CameraServer server;
-	
+	int session;
+    Image frame;
+    NIVision.Point startV = new NIVision.Point(640/2, 480*3/16);
+    NIVision.Point endV = new NIVision.Point(640/2, 480*7/16);
+    NIVision.Point startH = new NIVision.Point(640*3/8, 480*5/16);
+    NIVision.Point endH = new NIVision.Point(640*5/8, 480*5/16);
+    
+    Servo serv;
+    
 	public static OI oi;
 
 	public static Bras bras = new Bras();
@@ -50,13 +65,22 @@ public class Robot extends IterativeRobot {
 		oi = new OI();
         chooser = new SendableChooser();
 //        chooser.addObject("My Auto", new MyAutoCommand());
-        server = CameraServer.getInstance();
+        /*server = CameraServer.getInstance();
         server.setQuality(50);
-        server.startAutomaticCapture("cam2");
+        server.startAutomaticCapture("cam2");*/
+        
+        frame = NIVision.imaqCreateImage(NIVision.ImageType.IMAGE_RGB, 0);
+
+        // the camera name (ex "cam0") can be found through the roborio web interface
+        session = NIVision.IMAQdxOpenCamera("cam2",
+                NIVision.IMAQdxCameraControlMode.CameraControlModeController);
+        NIVision.IMAQdxConfigureGrab(session);
         
         //pdp = new PowerDistributionPanel();
         valve = new DigitalInput(9);
         spike = new Relay(0);
+        
+        serv = new Servo(5);
         
         SmartDashboard.putData("Auto mode", chooser);
         
@@ -118,6 +142,7 @@ public class Robot extends IterativeRobot {
         // this line or comment it out.
         if (autonomousCommand != null) autonomousCommand.cancel();
         
+        NIVision.IMAQdxStartAcquisition(session);
     }
 
     /**
@@ -125,6 +150,10 @@ public class Robot extends IterativeRobot {
      */
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
+        NIVision.IMAQdxGrab(session, frame, 1);
+        NIVision.imaqDrawLineOnImage(frame, frame, DrawMode.DRAW_VALUE, startV, endV, 0.0f);
+        NIVision.imaqDrawLineOnImage(frame, frame, DrawMode.DRAW_VALUE, startH, endH, 0.0f);
+        CameraServer.getInstance().setImage(frame);
         
         if(valve.get()){
         	spike.set(Relay.Value.kOff);
@@ -132,6 +161,26 @@ public class Robot extends IterativeRobot {
         	spike.set(Relay.Value.kReverse);
         }
         
+        //System.out.println("POV: " + oi.joystick.getPOV());
+        switch(oi.joystick.getPOV()){
+        	case 0:
+        		//Vue lancer
+        		serv.set(.6);
+        	break;
+        	case 270:
+        		//Vue conduite
+        		serv.set(0.83);
+        	break;
+        	case 180:
+        		//Vue interne
+        		serv.set(1);
+        	break;
+        	default:
+        	break;        
+        }
+        
+        	
+        Timer.delay(0.005);
        // System.out.println("Amperage:" + pdp.getTotalCurrent());
     }
     

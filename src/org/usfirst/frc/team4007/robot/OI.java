@@ -66,8 +66,8 @@ public class OI {
 		
 		jbLS.whenActive(new PrintDebug());
 		
-		/*jbX.whenReleased(new IncrementThrowingSpeed());
-		jbY.whenReleased(new DecrementThrowingSpeed());*/
+		jbY.whenReleased(new IncrementThrowingSpeed());
+		jbA.whenReleased(new DecrementThrowingSpeed());
 	}
 
 	
