@@ -21,7 +21,8 @@ public class Lanceur extends Subsystem {
 	public Jaguar essieuMilieu;
 	public Jaguar essieuBas;
 	public AnalogInput sonar;
-	public Encoder encoder;
+	public Encoder encoderMilieu;
+	public Encoder encoderHaut;
 	public boolean isFinishedSwallowing = false;
 	
 	private int sonarThreshold = 2500;
@@ -34,8 +35,9 @@ public class Lanceur extends Subsystem {
 	private long previousTime;
 	private int deltaTime;
 	
-	private int currentEncodeur;
-	private int previousEncodeur;
+	private double currentRate = 0;
+	private double previousRate = 0;
+	
 	
 	
 	public Lanceur(){
@@ -46,19 +48,30 @@ public class Lanceur extends Subsystem {
 		essieuBas = new Jaguar (RobotMap.PWMEssieuBas);
 		sonar = new AnalogInput(3);
 		
-		encoder = new Encoder(0,1,false, EncodingType.k2X);
-		encoder.setMinRate(.01);
-    	encoder.setDistancePerPulse(0.2094);
-    	encoder.reset();
+		encoderMilieu = new Encoder(0,1,false, EncodingType.k2X);
+		encoderMilieu.setMinRate(.01);
+    	encoderMilieu.setDistancePerPulse(0.2094);
+    	encoderMilieu.reset();
+    	
+    	encoderHaut = new Encoder(2,3,false, EncodingType.k2X);
+		encoderHaut.setMinRate(.01);
+    	encoderHaut.setDistancePerPulse(0.2094);
+    	encoderHaut.reset();
     	
     	currentTime = System.currentTimeMillis();
-    	currentEncodeur = encoder.getRaw();
+    	currentRate = encoderMilieu.getRaw();
 	}
 	
-	public int getEncoderRaw() {
+	public double getEncoderMilieuRate() {
 			
-		return currentEncodeur;
+		return encoderMilieu.getRate();
 	}
+	
+	public double getEncoderHautRate() {
+		
+		return encoderHaut.getRate();
+	}
+	
 	
 	public double getSpeedHaut(){
 		
@@ -99,8 +112,11 @@ public class Lanceur extends Subsystem {
     }*/
 
     public void preparerLancer(){
+    	currentRate = encoderMilieu.getRate();
+    	
     	essieuHaut.set(1);
     	essieuMilieu.set(throwingSpeed);
+    	previousRate = currentRate;
     }
     
     public void stopLancer(){

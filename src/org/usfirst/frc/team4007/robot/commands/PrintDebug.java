@@ -44,7 +44,10 @@ public class PrintDebug extends Command {
     
     private void outputDebug(){
     	System.out.println("---------------Debug : BEGIN --------");
-    	System.out.println("Encodeur: " + Robot.lanceur.getEncoderRaw());
+    	System.out.println(
+    			"Encodeur milieu : " + String.format("%4.1f", Robot.lanceur.getEncoderMilieuRate()) +
+    			"\thaut : " + String.format("%4.1f", Robot.lanceur.getEncoderHautRate()));
+    	
     	System.out.println("Vitesse Lanceur Haut: " + Robot.lanceur.getSpeedHaut());
     	System.out.println("Vitesse Lanceur Milieu: " + Robot.lanceur.getSpeedMilieu());
     	System.out.println("Vitesse Lanceur Bas: " + Robot.lanceur.getSpeedBas());
