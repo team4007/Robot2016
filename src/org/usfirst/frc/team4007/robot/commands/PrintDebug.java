@@ -56,7 +56,7 @@ public class PrintDebug extends Command {
     
     
     private void outputWhileHolding(Joystick j){
-    	if(j.getRawButton(3)){
+    	if(j.getRawButton(9)){
     		outputDebug();
     	}
     	

@@ -1,6 +1,8 @@
 package org.usfirst.frc.team4007.robot;
 
+import org.usfirst.frc.team4007.robot.commands.DecrementThrowingSpeed;
 import org.usfirst.frc.team4007.robot.commands.DownThrow;
+import org.usfirst.frc.team4007.robot.commands.IncrementThrowingSpeed;
 import org.usfirst.frc.team4007.robot.commands.LiftUp;
 import org.usfirst.frc.team4007.robot.commands.PrepareLift;
 import org.usfirst.frc.team4007.robot.commands.PrintDebug;
@@ -62,8 +64,10 @@ public class OI {
 		/*jbA.whenActive(new Throw());
 		jbA.whenInactive(new StopThrow());*/
 		
-		jbY.whenActive(new PrintDebug());
+		jbLS.whenActive(new PrintDebug());
 		
+		/*jbX.whenReleased(new IncrementThrowingSpeed());
+		jbY.whenReleased(new DecrementThrowingSpeed());*/
 	}
 
 	

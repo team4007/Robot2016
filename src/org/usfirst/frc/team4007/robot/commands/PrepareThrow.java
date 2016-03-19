@@ -7,7 +7,8 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class PrepareThrow extends Command {
-
+	static long delta = 2;
+	long time;
     public PrepareThrow() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
@@ -17,12 +18,18 @@ public class PrepareThrow extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	time = System.currentTimeMillis();
     	System.out.println("Throw.initialize()");   
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	if(System.currentTimeMillis() - time < delta){
+    		Robot.lanceur.downLancer();
+    	}else{
+    	Robot.lanceur.downStopLancer();
     	Robot.lanceur.preparerLancer();
+    	}
     }
 
     // Make this return true when this Command no longer needs to run execute()

@@ -24,10 +24,12 @@ public class Lanceur extends Subsystem {
 	public Encoder encoderMilieu;
 	public Encoder encoderHaut;
 	public boolean isFinishedSwallowing = false;
+	public boolean isPreparingLaunch = false;
+	
 	
 	private int sonarThreshold = 2500;
-	private double throwingSpeed = -1;
-	private double swallowingSpeed = -.5;
+	public double throwingSpeed = -1;
+	private double swallowingSpeed = .5;
 	
 	private boolean swallowerRunning = false;
 	
@@ -112,7 +114,9 @@ public class Lanceur extends Subsystem {
     }*/
 
     public void preparerLancer(){
+    	throwingSpeed = -1.0;
     	currentRate = encoderMilieu.getRate();
+    	isPreparingLaunch = true;
     	
     	essieuHaut.set(1);
     	essieuMilieu.set(throwingSpeed);
@@ -120,6 +124,7 @@ public class Lanceur extends Subsystem {
     }
     
     public void stopLancer(){
+    	isPreparingLaunch = false;
     	essieuHaut.set(0);
     	essieuMilieu.set(0);
     }
@@ -129,7 +134,7 @@ public class Lanceur extends Subsystem {
     }
     
     public void downLancer(){
-    	essieuBas.set(1);
+    	essieuBas.set(-1);
     }
     
     public void downStopLancer(){
@@ -160,6 +165,28 @@ public class Lanceur extends Subsystem {
     
     public void setSwallowerSpeed(double speed){
     	essieuBas.set(speed);
+    }
+    
+    public void incrementThrowingSpeed(){
+    	if(isPreparingLaunch && throwingSpeed > -1.0 ){
+    		throwingSpeed -= 0.1;
+    	}
+    	currentRate = encoderMilieu.getRate();
+    	
+    	essieuHaut.set(1);
+    	essieuMilieu.set(throwingSpeed);
+    	previousRate = currentRate;
+    }
+    
+    public void decrementThrowingSpeed(){
+    	if(isPreparingLaunch && throwingSpeed < -0.5){
+    		throwingSpeed += 0.1;
+    	}
+    	currentRate = encoderMilieu.getRate();
+    	
+    	essieuHaut.set(1);
+    	essieuMilieu.set(throwingSpeed);
+    	previousRate = currentRate;
     }
 }
     

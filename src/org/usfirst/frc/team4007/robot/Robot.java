@@ -11,6 +11,7 @@ import org.usfirst.frc.team4007.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team4007.robot.subsystems.Bras;
 import org.usfirst.frc.team4007.robot.subsystems.Lanceur;
 
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -27,7 +28,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends IterativeRobot {
 	//IMPORTANT
 	public static final Lanceur lanceur = new Lanceur();
-	
+	CameraServer server;
 	
 	public static OI oi;
 
@@ -49,9 +50,9 @@ public class Robot extends IterativeRobot {
 		oi = new OI();
         chooser = new SendableChooser();
 //        chooser.addObject("My Auto", new MyAutoCommand());
-        /*server = CameraServer.getInstance();
+        server = CameraServer.getInstance();
         server.setQuality(50);
-        server.startAutomaticCapture("cam0");*/
+        server.startAutomaticCapture("cam2");
         
         //pdp = new PowerDistributionPanel();
         valve = new DigitalInput(9);
