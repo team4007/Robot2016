@@ -56,6 +56,14 @@ public class Robot extends IterativeRobot {
 
     Command autonomousCommand;
     SendableChooser chooser;
+    
+    public long currentTime = 0;
+    public long previousTime = 0;
+    
+    public static long deltaTime = 0;
+    
+    
+    
 
     /**
      * This function is run when the robot is first started up and should be
@@ -150,6 +158,11 @@ public class Robot extends IterativeRobot {
      */
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
+        
+        currentTime = System.currentTimeMillis();
+        deltaTime = currentTime - previousTime;
+        
+        
         NIVision.IMAQdxGrab(session, frame, 1);
         NIVision.imaqDrawLineOnImage(frame, frame, DrawMode.DRAW_VALUE, startV, endV, 0.0f);
         NIVision.imaqDrawLineOnImage(frame, frame, DrawMode.DRAW_VALUE, startH, endH, 0.0f);
@@ -182,6 +195,8 @@ public class Robot extends IterativeRobot {
         	
         Timer.delay(0.005);
        // System.out.println("Amperage:" + pdp.getTotalCurrent());
+        
+        previousTime = currentTime;
     }
     
     /**

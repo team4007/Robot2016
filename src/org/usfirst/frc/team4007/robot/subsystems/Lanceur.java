@@ -133,7 +133,11 @@ public class Lanceur extends Subsystem {
     	essieuBas.set(-1);
     }
     
-    public void downLancer(){
+    /**
+     * Permet de lancer le ballon dans le trou
+     * du bas
+     */
+    public void eject(){
     	essieuBas.set(-1);
     }
     
@@ -141,6 +145,10 @@ public class Lanceur extends Subsystem {
     	essieuBas.set(0);
     }
     
+    /**
+     * Methode permettant de gober le ballon ou encore
+     * d'envoyer le ballon vers les roues lanceuses
+     */
     public void gober(){
     	
     	/*if(sonar.getValue() < sonarThreshold){

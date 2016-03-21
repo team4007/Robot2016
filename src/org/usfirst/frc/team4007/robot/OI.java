@@ -10,6 +10,7 @@ import org.usfirst.frc.team4007.robot.commands.StopDownThrow;
 import org.usfirst.frc.team4007.robot.commands.StopSwallow;
 import org.usfirst.frc.team4007.robot.commands.StopThrow;
 import org.usfirst.frc.team4007.robot.commands.Swallow;
+import org.usfirst.frc.team4007.robot.commands.SwitchDrive;
 import org.usfirst.frc.team4007.robot.commands.Throw;
 import org.usfirst.frc.team4007.robot.triggers.DoubleButton;
 import org.usfirst.frc.team4007.robot.commands.PrepareThrow;
@@ -48,6 +49,9 @@ public class OI {
 		
 		new DoubleButton(joystick, 2, 3).whenActive(new DownThrow());
 		new DoubleButton(joystick, 2, 3).whenInactive(new StopDownThrow());
+		
+		new DoubleButton (joystick, 1, 3).whenActive(new SwitchDrive());
+				
 		
 		jbLB.whenActive(new Swallow()); 
 		jbLB.whenInactive(new StopSwallow());

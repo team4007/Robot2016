@@ -9,9 +9,15 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class PrepareThrow extends Command {
-	static long delta = 2;
+	static long delay = 2;
 	long time;
 	boolean oppositeImpulse = false;
+	
+	// TODO : Comment eviter le relachement du bouton accidentel?
+	static long errorDelay = 500;
+	long errorAcc = 0;
+	
+	
     public PrepareThrow() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
@@ -28,16 +34,27 @@ public class PrepareThrow extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if(System.currentTimeMillis() - time < delta){
-    		Robot.lanceur.downLancer();
+
+    	errorAcc += Robot.deltaTime;
+	
+    	if(System.currentTimeMillis() - time < delay){
+    		/** Permet de donner une impulsion pour sortir le ballon juste
+    		 * de preparer les essieux superieurs
+    		 */
+    		if (errorAcc > errorDelay) {
+    			System.out.println("errorAcc = " + errorAcc);
+    			errorAcc = 0;
+    			Robot.lanceur.eject();
+    		}
     	}else{
     		if(!oppositeImpulse){
     			Robot.lanceur.gober();
     			oppositeImpulse = true;
     			Timer.delay(0.01);
     		}
-    	Robot.lanceur.downStopLancer();
-    	Robot.lanceur.preparerLancer();
+    		
+	    	Robot.lanceur.downStopLancer();
+	    	Robot.lanceur.preparerLancer();
     	}
     }
 
@@ -54,7 +71,6 @@ public class PrepareThrow extends Command {
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	end();
-    	
+    	end();    	
     }
 }

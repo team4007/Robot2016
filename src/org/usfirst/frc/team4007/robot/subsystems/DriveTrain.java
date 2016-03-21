@@ -25,6 +25,7 @@ public class DriveTrain extends Subsystem {
 	public PIDController pid1, pid2;*/
 	
 
+	public static int direction = 1;
 	
 	RobotDrive drive1;
 	
@@ -59,7 +60,7 @@ public class DriveTrain extends Subsystem {
     
     public void drive(Joystick joystick) {
     	//drive.arcadeDrive(-joystick.getY(), -joystick.getX());     1 joystick
-    	drive1.arcadeDrive(joystick.getRawAxis(1), joystick.getRawAxis(4));     // 2 joysticks
+    	drive1.arcadeDrive(direction * joystick.getRawAxis(1), joystick.getRawAxis(4));     // 2 joysticks
     
     }
 }

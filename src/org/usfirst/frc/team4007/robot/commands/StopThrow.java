@@ -5,10 +5,13 @@ import org.usfirst.frc.team4007.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- *
+ * Commande permettant d'arreter les roues de lancement
  */
 public class StopThrow extends Command {
 
+	static int stopAcc = 0;
+	static int stopDelay = 200; // Permettra d'empecher le relachement accidentel
+	
     public StopThrow() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
@@ -22,7 +25,9 @@ public class StopThrow extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.lanceur.stopLancer();
+    	stopAcc += Robot.deltaTime;
+
+		Robot.lanceur.stopLancer();	
     }
 
     // Make this return true when this Command no longer needs to run execute()
