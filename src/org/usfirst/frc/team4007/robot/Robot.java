@@ -3,6 +3,7 @@ package org.usfirst.frc.team4007.robot;
 
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.PWM;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -11,6 +12,7 @@ import org.usfirst.frc.team4007.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team4007.robot.subsystems.Bras;
 import org.usfirst.frc.team4007.robot.subsystems.Lanceur;
 
+
 import com.ni.vision.NIVision;
 import com.ni.vision.NIVision.DrawMode;
 import com.ni.vision.NIVision.Image;
@@ -18,6 +20,7 @@ import com.ni.vision.NIVision.ShapeMode;
 
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DigitalOutput;
 import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.Timer;
@@ -38,17 +41,25 @@ public class Robot extends IterativeRobot {
 	CameraServer server;
 	int session;
     Image frame;
-    NIVision.Point startV = new NIVision.Point(640/2, 480*3/16);
+    
+  /*
+   * 
+   * Camera
+   
+     NIVision.Point startV = new NIVision.Point(640/2, 480*3/16);
     NIVision.Point endV = new NIVision.Point(640/2, 480*7/16);
     NIVision.Point startH = new NIVision.Point(640*3/8, 480*5/16);
     NIVision.Point endH = new NIVision.Point(640*5/8, 480*5/16);
-    
+    *
+    *
+    *
+    */
     Servo serv;
     
 	public static OI oi;
 
 	public static Bras bras = new Bras();
-	public static DriveTrain driveTrain = new DriveTrain();
+	public static DriveTrain driveTrain;// = new DriveTrain();
 	
 	//public PowerDistributionPanel pdp;
 	public DigitalInput valve;
@@ -61,7 +72,7 @@ public class Robot extends IterativeRobot {
     public long previousTime = 0;
     
     public static long deltaTime = 0;
-    
+    public PWM fan = new PWM(7);
     
     
 
@@ -71,18 +82,28 @@ public class Robot extends IterativeRobot {
      */
     public void robotInit() {
 		oi = new OI();
+		driveTrain = new DriveTrain();
         chooser = new SendableChooser();
+        fan.setRaw(255);
 //        chooser.addObject("My Auto", new MyAutoCommand());
-        /*server = CameraServer.getInstance();
+      /*
+       * Camera
+       *   
+       *   
+        server = CameraServer.getInstance();
         server.setQuality(50);
-        server.startAutomaticCapture("cam2");*/
+        server.startAutomaticCapture("cam2");
         
         frame = NIVision.imaqCreateImage(NIVision.ImageType.IMAGE_RGB, 0);
+        
+        *
+        *
+        */
 
         // the camera name (ex "cam0") can be found through the roborio web interface
-        session = NIVision.IMAQdxOpenCamera("cam2",
-                NIVision.IMAQdxCameraControlMode.CameraControlModeController);
-        NIVision.IMAQdxConfigureGrab(session);
+       /* session = NIVision.IMAQdxOpenCamera("cam2",
+                NIVision.IMAQdxCameraControlMode.CameraControlModeController);*/
+       // NIVision.IMAQdxConfigureGrab(session);
         
         //pdp = new PowerDistributionPanel();
         valve = new DigitalInput(9);
@@ -150,7 +171,12 @@ public class Robot extends IterativeRobot {
         // this line or comment it out.
         if (autonomousCommand != null) autonomousCommand.cancel();
         
-        NIVision.IMAQdxStartAcquisition(session);
+        /* Demarre la commande de la camera
+         *	On peut retirer les commantaires lier a la camera dans cette classe
+         */
+        oi.cam.start();
+        /*
+        NIVision.IMAQdxStartAcquisition(session);*/
     }
 
     /**
@@ -162,12 +188,15 @@ public class Robot extends IterativeRobot {
         currentTime = System.currentTimeMillis();
         deltaTime = currentTime - previousTime;
         
-        
+       /*
+        * 
+        * CAmera
         NIVision.IMAQdxGrab(session, frame, 1);
         NIVision.imaqDrawLineOnImage(frame, frame, DrawMode.DRAW_VALUE, startV, endV, 0.0f);
         NIVision.imaqDrawLineOnImage(frame, frame, DrawMode.DRAW_VALUE, startH, endH, 0.0f);
         CameraServer.getInstance().setImage(frame);
-        
+        *
+        */
         if(valve.get()){
         	spike.set(Relay.Value.kOff);
         }else{
@@ -182,7 +211,7 @@ public class Robot extends IterativeRobot {
         	break;
         	case 270:
         		//Vue conduite
-        		serv.set(0.83);
+        		serv.set(0.78);
         	break;
         	case 180:
         		//Vue interne

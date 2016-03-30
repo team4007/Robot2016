@@ -29,8 +29,10 @@ public class SwitchDrive extends Command {
     	
     	if (switchAcc > buttonDelay) {
     		switchAcc = 0;
-    		DriveTrain.direction = -DriveTrain.direction;
-    	}    	
+    		//DriveTrain.direction = -DriveTrain.direction;  	
+    	}  
+    	// Math Le delais ne fonctionne pas
+    	DriveTrain.direction = -DriveTrain.direction;  	
     }
 
     // Make this return true when this Command no longer needs to run execute()

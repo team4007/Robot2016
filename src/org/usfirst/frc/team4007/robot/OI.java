@@ -1,5 +1,7 @@
 package org.usfirst.frc.team4007.robot;
 
+
+import org.usfirst.frc.team4007.robot.commands.Camera;
 import org.usfirst.frc.team4007.robot.commands.DecrementThrowingSpeed;
 import org.usfirst.frc.team4007.robot.commands.DownThrow;
 import org.usfirst.frc.team4007.robot.commands.IncrementThrowingSpeed;
@@ -18,6 +20,7 @@ import org.usfirst.frc.team4007.robot.commands.PrepareThrow;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.command.Scheduler;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -27,9 +30,9 @@ public class OI {
 
 
 	public Joystick joystick;
-	
+	public Camera cam;
 	public PrintDebug pd;
-	
+
 	public OI() {
 		joystick = new Joystick(0);
 
@@ -51,7 +54,12 @@ public class OI {
 		new DoubleButton(joystick, 2, 3).whenInactive(new StopDownThrow());
 		
 		new DoubleButton (joystick, 1, 3).whenActive(new SwitchDrive());
-				
+		
+		cam = new Camera();
+		Scheduler.getInstance().add(cam);
+		
+		
+		
 		
 		jbLB.whenActive(new Swallow()); 
 		jbLB.whenInactive(new StopSwallow());
