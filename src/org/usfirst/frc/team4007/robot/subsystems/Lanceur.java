@@ -117,7 +117,7 @@ public class Lanceur extends Subsystem {
     	//currentRate = encoderMilieu.getRate();
     	isPreparingLaunch = true;
     	
-    	System.out.println("Throwing speed: " + -throwingSpeed);
+    	//System.out.println("Throwing speed: " + -throwingSpeed);
     	essieuHaut.set(1);
     	essieuMilieu.set(throwingSpeed);
     	//previousRate = currentRate;
@@ -130,7 +130,7 @@ public class Lanceur extends Subsystem {
     }
     
     public void lancer(){
-    	essieuBas.set(-1);
+    	essieuBas.set(1);
     }
     
     /**
@@ -139,6 +139,7 @@ public class Lanceur extends Subsystem {
      */
     public void eject(){
     	essieuBas.set(-1);
+    	essieuMilieu.set(-throwingSpeed);
     }
     
     public void downStopLancer(){

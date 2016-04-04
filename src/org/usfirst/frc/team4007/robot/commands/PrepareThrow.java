@@ -9,9 +9,12 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class PrepareThrow extends Command {
-	static long delay = 2;
-	long time;
+	static long delay = 30;
+	long previousTime = 0;
 	boolean oppositeImpulse = false;
+	long currentTime;
+	long deltaTime = 0;
+	long accTime = 0;
 	
 	// TODO : Comment eviter le relachement du bouton accidentel?
 	static long errorDelay = 500;
@@ -27,35 +30,51 @@ public class PrepareThrow extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	time = System.currentTimeMillis();
+    	
+    	currentTime = System.currentTimeMillis();
+    	previousTime = System.currentTimeMillis();
+    	
     	oppositeImpulse = false;
-    	System.out.println("Throw.initialize()");   
+    	System.out.println("Throw.initialize()");  
+		accTime = 0;
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-
+    	currentTime = System.currentTimeMillis();
+    	deltaTime = currentTime - previousTime;
+    	
+    	accTime += deltaTime;
     	errorAcc += Robot.deltaTime;
 	
-    	if(System.currentTimeMillis() - time < delay){
+    	System.out.println("accTime : " + accTime);
+    	if(accTime < delay){
     		/** Permet de donner une impulsion pour sortir le ballon juste
     		 * de preparer les essieux superieurs
     		 */
-    		if (errorAcc > errorDelay) {
-    			System.out.println("errorAcc = " + errorAcc);
+    		System.out.println("PrepareThrow Premier passage");
+
+    		
+    		//if (errorAcc > errorDelay) {
+    			//System.out.println("PrepareThrow : Dans l'errorDelay");
     			errorAcc = 0;
     			Robot.lanceur.eject();
-    		}
+    			
+    			//Robot.lanceur.essieuMilieu.set(1.0);
+    		//}
     	}else{
     		if(!oppositeImpulse){
-    			Robot.lanceur.gober();
+    			Robot.lanceur.eject();
     			oppositeImpulse = true;
-    			Timer.delay(0.01);
+    			//Timer.delay(0.01);
+    			System.out.println("PrepareThrow : !oppositeImpulse");
     		}
     		
 	    	Robot.lanceur.downStopLancer();
 	    	Robot.lanceur.preparerLancer();
     	}
+    	
+    	previousTime = currentTime;
     }
 
     // Make this return true when this Command no longer needs to run execute()

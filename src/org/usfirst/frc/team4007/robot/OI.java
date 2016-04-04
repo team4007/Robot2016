@@ -30,7 +30,8 @@ public class OI {
 
 
 	public Joystick joystick;
-	public Camera cam;
+	
+//	public Camera cam;
 	public PrintDebug pd;
 
 	public OI() {
@@ -55,8 +56,7 @@ public class OI {
 		
 		new DoubleButton (joystick, 1, 3).whenActive(new SwitchDrive());
 		
-		cam = new Camera();
-		Scheduler.getInstance().add(cam);
+		
 		
 		
 		

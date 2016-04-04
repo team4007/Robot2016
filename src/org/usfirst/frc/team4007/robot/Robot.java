@@ -9,6 +9,8 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import org.usfirst.frc.team4007.robot.subsystems.DriveTrain;
+import org.usfirst.frc.team4007.robot.commands.AutoObstacles;
+import org.usfirst.frc.team4007.robot.commands.Camera;
 import org.usfirst.frc.team4007.robot.subsystems.Bras;
 import org.usfirst.frc.team4007.robot.subsystems.Lanceur;
 
@@ -60,7 +62,10 @@ public class Robot extends IterativeRobot {
 
 	public static Bras bras = new Bras();
 	public static DriveTrain driveTrain;// = new DriveTrain();
+	public Command cam;
 	
+	double cameraPosition = 0;
+	double cameraSpeed = 0.01;
 	//public PowerDistributionPanel pdp;
 	public DigitalInput valve;
 	public Relay spike;
@@ -85,6 +90,8 @@ public class Robot extends IterativeRobot {
 		driveTrain = new DriveTrain();
         chooser = new SendableChooser();
         fan.setRaw(255);
+         cam = new Camera();
+		Scheduler.getInstance().add(cam);
 //        chooser.addObject("My Auto", new MyAutoCommand());
       /*
        * Camera
@@ -122,7 +129,8 @@ public class Robot extends IterativeRobot {
 	 * the robot is disabled.
      */
     public void disabledInit(){
-
+    	System.out.println("Camera eteinte");
+    	cam.cancel();
     }
 	
 	public void disabledPeriodic() {
@@ -139,7 +147,7 @@ public class Robot extends IterativeRobot {
 	 * or additional comparisons to the switch structure below with additional strings & commands.
 	 */
     public void autonomousInit() {
-        autonomousCommand = (Command) chooser.getSelected();
+       // autonomousCommand = (Command) chooser.getSelected();
         
 		/* String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
 		switch(autoSelected) {
@@ -151,7 +159,7 @@ public class Robot extends IterativeRobot {
 			autonomousCommand = new ExampleCommand();
 			break;
 		} */
-    	
+    	autonomousCommand = new AutoObstacles();
     	// schedule the autonomous command (example)
         if (autonomousCommand != null) autonomousCommand.start();
     }
@@ -161,6 +169,8 @@ public class Robot extends IterativeRobot {
      */
     public void autonomousPeriodic() {
         Scheduler.getInstance().run();
+        
+        Timer.delay(0.005);
     }
    
 
@@ -174,7 +184,8 @@ public class Robot extends IterativeRobot {
         /* Demarre la commande de la camera
          *	On peut retirer les commantaires lier a la camera dans cette classe
          */
-        oi.cam.start();
+        
+        cam.start();
         /*
         NIVision.IMAQdxStartAcquisition(session);*/
     }
@@ -203,25 +214,42 @@ public class Robot extends IterativeRobot {
         	spike.set(Relay.Value.kReverse);
         }
         
+        boolean cameraPosChanged = false;
         //System.out.println("POV: " + oi.joystick.getPOV());
         switch(oi.joystick.getPOV()){
         	case 0:
         		//Vue lancer
         		serv.set(.6);
+        		//cameraPosition -= cameraSpeed;
+        		//cameraPosChanged = true;
         	break;
         	case 270:
         		//Vue conduite
         		serv.set(0.78);
+        		//cameraPosition = 0.7;
+        		//cameraPosChanged = true;
         	break;
         	case 180:
         		//Vue interne
         		serv.set(1);
+        		//cameraPosition += cameraSpeed;
+        		//cameraPosChanged = true;
         	break;
         	default:
         	break;        
-        }
+        } 
         
-        	
+   /*     if (cameraPosChanged) {
+	        if (cameraPosition < 0.6) {
+	        	cameraPosition = 0.6;
+	        } else if (cameraPosition > 1) {
+	        	cameraPosition = 1;
+	        }
+	        //double zAxisValue = oi.joystick.getRawAxis(2) * .4;
+	        
+	        serv.set(cameraPosition);
+        }
+     */   	
         Timer.delay(0.005);
        // System.out.println("Amperage:" + pdp.getTotalCurrent());
         

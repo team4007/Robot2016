@@ -26,7 +26,7 @@ public class DriveTrain extends Subsystem {
 	
 
 	public static int direction = 1;
-	
+	public double speedFactor = 1;
 	RobotDrive drive1;
 	
 	//private double drivingSpeed = .25;
@@ -60,7 +60,11 @@ public class DriveTrain extends Subsystem {
     
     public void drive(Joystick joystick) {
     	//drive.arcadeDrive(-joystick.getY(), -joystick.getX());     1 joystick
-    	drive1.arcadeDrive(direction * joystick.getRawAxis(1), joystick.getRawAxis(4));     // 2 joysticks
+    	// Modification pour mode ralenti. NB 20160330 11:30
+    	speedFactor = Math.abs(joystick.getRawAxis(3)) > 0.7 ? 0.5 : 1;    	
+    	drive1.arcadeDrive(
+    			direction * joystick.getRawAxis(1) * speedFactor,
+    			-direction * joystick.getRawAxis(4) * speedFactor);     // 2 joysticks
     
     }
 }
